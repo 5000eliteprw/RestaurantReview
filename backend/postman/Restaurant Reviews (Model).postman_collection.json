@@ -1,0 +1,1071 @@
+{
+	"info": {
+		"_postman_id": "c15c1b4e-a161-4815-bdbd-76e36a670947",
+		"name": "Restaurant Reviews (Model)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "{{first_name}}",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "{{last_name}}",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "{{role}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Read",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "59b1ab71-b484-4c65-be09-464d15267490",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/users/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read all",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1e211fdf-e680-4fdd-993e-1d148a2cb4dd",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c22b2990-a19c-4de0-bf6c-c9e20c95f29b",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "382a16cc-d22d-43c6-a18d-e62384a9ab1a",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/users/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Restaurant",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8365da54-3df4-4432-af27-9b992d84ced0",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"    if (pm.environment.name ===\"Owner1\") {\r",
+									"        pm.environment.set(\"owner_id\", res.json().user.id);\r",
+									"    }\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "owner_restaurant3",
+									"type": "text"
+								},
+								{
+									"key": "background_image_url",
+									"value": "https://kingberestaurantbd.files.wordpress.com/2016/07/cropped-img_4135.jpg",
+									"type": "text"
+								},
+								{
+									"key": "owner_id",
+									"value": "{{owner_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/restaurants",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3965842b-385e-45fd-9802-7c29411fe03b",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/restaurants/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"restaurants",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read all",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1fcaf3d6-b6d4-419a-bf2b-75229142fb15",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/restaurants",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read only owned",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9f0ef364-b916-4f3c-a861-0c6e434f6b56",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/restaurants?owner_id={{owner_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"restaurants"
+							],
+							"query": [
+								{
+									"key": "owner_id",
+									"value": "{{owner_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "588ce70a-2a97-4c8d-b20d-53966dfa663a",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"    if (pm.environment.name ===\"Owner1\") {\r",
+									"        pm.environment.set(\"owner_id\", res.json().user.id);\r",
+									"    }\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "owner_restaurant2",
+									"type": "text"
+								},
+								{
+									"key": "owner_id",
+									"value": "{{owner_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/restaurants/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"restaurants",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fe4b4ba5-2eaf-4872-821e-0756e3ec3291",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");\r",
+									"pm.sendRequest({\r",
+									"    url: `${baseURL}/auth/login`,\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {key: 'email', value: pm.environment.get(\"email\")},\r",
+									"            {key: 'password', value: pm.environment.get(\"password\")},\r",
+									"        ]\r",
+									"    },\r",
+									"}, function (err, res) {\r",
+									"    pm.environment.set(\"token\", res.json().access);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/restaurants/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"restaurants",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5145288e-2962-46b8-bf8a-612b0e9af5d9",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");",
+									"pm.sendRequest({",
+									"    url: `${baseURL}/auth/login`,",
+									"    method: 'POST',",
+									"    body: {",
+									"        mode: 'formdata',",
+									"        formdata: [",
+									"            {key: 'email', value: pm.environment.get(\"email\")},",
+									"            {key: 'password', value: pm.environment.get(\"password\")},",
+									"        ]",
+									"    },",
+									"}, function (err, res) {",
+									"    pm.environment.set(\"token\", res.json().access);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "rating",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Today marks the launch of a new chapter in the Zagat story",
+									"type": "text"
+								},
+								{
+									"key": "restaurant_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "date_visited",
+									"value": "2020-10-10T05:03:28.387+08:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/reviews",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "816e7464-e3b7-4ba0-a619-c92956622345",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");",
+									"pm.sendRequest({",
+									"    url: `${baseURL}/auth/login`,",
+									"    method: 'POST',",
+									"    body: {",
+									"        mode: 'formdata',",
+									"        formdata: [",
+									"            {key: 'email', value: pm.environment.get(\"email\")},",
+									"            {key: 'password', value: pm.environment.get(\"password\")},",
+									"        ]",
+									"    },",
+									"}, function (err, res) {",
+									"    pm.environment.set(\"token\", res.json().access);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/reviews/8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reviews",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read all",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "11d0205a-6cd8-4fe2-9bca-85473d366944",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");",
+									"pm.sendRequest({",
+									"    url: `${baseURL}/auth/login`,",
+									"    method: 'POST',",
+									"    body: {",
+									"        mode: 'formdata',",
+									"        formdata: [",
+									"            {key: 'email', value: pm.environment.get(\"email\")},",
+									"            {key: 'password', value: pm.environment.get(\"password\")},",
+									"        ]",
+									"    },",
+									"}, function (err, res) {",
+									"    pm.environment.set(\"token\", res.json().access);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/reviews",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read pending",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ae483d04-c012-4b55-a40e-95d5c1bece84",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");",
+									"pm.sendRequest({",
+									"    url: `${baseURL}/auth/login`,",
+									"    method: 'POST',",
+									"    body: {",
+									"        mode: 'formdata',",
+									"        formdata: [",
+									"            {key: 'email', value: pm.environment.get(\"email\")},",
+									"            {key: 'password', value: pm.environment.get(\"password\")},",
+									"        ]",
+									"    },",
+									"}, function (err, res) {",
+									"    pm.environment.set(\"token\", res.json().access);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/reviews?owner_id={{owner_id}}&pending=true",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "owner_id",
+									"value": "{{owner_id}}"
+								},
+								{
+									"key": "pending",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e6d3eb5f-7842-4cf6-816d-3f3380087ed9",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");",
+									"pm.sendRequest({",
+									"    url: `${baseURL}/auth/login`,",
+									"    method: 'POST',",
+									"    body: {",
+									"        mode: 'formdata',",
+									"        formdata: [",
+									"            {key: 'email', value: pm.environment.get(\"email\")},",
+									"            {key: 'password', value: pm.environment.get(\"password\")},",
+									"        ]",
+									"    },",
+									"}, function (err, res) {",
+									"    pm.environment.set(\"token\", res.json().access);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "comment",
+									"value": "To kick things off, explore original stories from a dozen chefs and restaurateurs in America – ranging from those at the pinnacle of success, to those who’ve just recently experienced their first culinary victories.",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/reviews/11",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reviews",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reply",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "752fa640-e485-4d2a-a258-788d7cb99363",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");",
+									"pm.sendRequest({",
+									"    url: `${baseURL}/auth/login`,",
+									"    method: 'POST',",
+									"    body: {",
+									"        mode: 'formdata',",
+									"        formdata: [",
+									"            {key: 'email', value: pm.environment.get(\"email\")},",
+									"            {key: 'password', value: pm.environment.get(\"password\")},",
+									"        ]",
+									"    },",
+									"}, function (err, res) {",
+									"    pm.environment.set(\"token\", res.json().access);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "reply",
+									"value": "Thank you very much.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/reviews/11/reply",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reviews",
+								"11",
+								"reply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e205e682-6269-4330-bb39-f4512f351433",
+								"exec": [
+									"const baseURL = pm.globals.get(\"baseURL\");",
+									"pm.sendRequest({",
+									"    url: `${baseURL}/auth/login`,",
+									"    method: 'POST',",
+									"    body: {",
+									"        mode: 'formdata',",
+									"        formdata: [",
+									"            {key: 'email', value: pm.environment.get(\"email\")},",
+									"            {key: 'password', value: pm.environment.get(\"password\")},",
+									"        ]",
+									"    },",
+									"}, function (err, res) {",
+									"    pm.environment.set(\"token\", res.json().access);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/reviews/11",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reviews",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

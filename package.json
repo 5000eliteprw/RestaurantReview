@@ -1,0 +1,15 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "heroku-prebuild": "NODE_ENV=production cd frontend/ && yarn install && yarn build && cd ..",
+    "start": "cd frontend/ && yarn install && yarn start && cd ..",
+    "build": "cd frontend/ && yarn install && yarn build && cd ..",
+    "test": "cd frontend/ && yarn install && yarn test && cd ..",
+    "eject": "cd frontend/ && yarn install && yarn eject && cd .."
+  },
+  "cacheDirectories": [
+    "frontend/node_modules"
+  ]
+}
