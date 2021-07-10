@@ -4,6 +4,7 @@ django-cors-headers==3.5.0
 drf-yasg==1.17.1
 drf_writable_nested==0.5.1
 djangorestframework_simplejwt==4.3.0
+PyJWT==1.7.1
 rest-condition==1.0.3
 whitenoise==5.2.0
 gunicorn==20.0.4
